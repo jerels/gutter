@@ -4,6 +4,7 @@ from flask_login import login_user, current_user, logout_user
 from werkzeug.datastructures import MultiDict
 from flask_wtf.crsrf import generate_csrf
 from ..forms.login import LoginForm
+from ..models.user import User
 
 session = Blueprint('session', __name__)
 
