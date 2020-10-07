@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom';
 import LoginForm from './components/forms/LoginForm';
+import SignUpForm from './components/forms/SignUpForm';
 import UserList from './components/UsersList';
 
 
@@ -28,6 +29,9 @@ function App() {
                 </Route>
                 <Route path='/login'>
                     <LoginForm />
+                </Route>
+                <Route path='/signup'>
+                    <SignUpForm />
                 </Route>
                 <Route path="/">
                     <h1>My Home Page</h1>
