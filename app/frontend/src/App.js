@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom';
 import LoginForm from './components/forms/LoginForm';
 import UserList from './components/UsersList';
 
 
 function App() {
-    console.log("____Rendering app_____")
+    useEffect(() => {
+        const getCSRF = async () => {
+            const res = await fetch('/api/session/csrf');
+            if (res.ok) {
+                return;
+            }
+        }
+        getCSRF();
+    }, []);
     return (
         <BrowserRouter>
             <nav>

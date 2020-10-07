@@ -13,10 +13,11 @@ session = Blueprint('session', __name__)
 def login():
     data = MultiDict(mapping=request.json)
     form = LoginForm(data)
-
+    print('data!:', data['emailOrUsername'])
     if form.validate():
         user = User.query.filter(or_(
             User.username == data['emailOrUsername'], User.email == data['emailOrUsername'])).first()
+        print('user!: ', user)
         if user and user.checkPassword(data['password']):
             login_user(user)
             return {'userId': user.to_dict()['id']}
@@ -27,3 +28,10 @@ def login():
         res = make_response(
             {'errors': [form.errors[error][0] for error in form.errors]}, 401)
         return res
+
+
+@session.route('/csrf')
+def csrf():
+    res = make_response('set token')
+    res.set_cookie('XSRF-TOKEN', generate_csrf())
+    return res

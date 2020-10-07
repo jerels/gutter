@@ -19,7 +19,7 @@ export const login = (emailOrUsername, password) => {
                 'Content-Type': 'application/json',
                 'X-CSRFTOKEN': csrfToken
             },
-            body: JSON.stringify({ emailOrUsername, password, 'csrfToken': csrfToken })
+            body: JSON.stringify({ emailOrUsername, password, 'csrf_token': csrfToken })
         });
         res.data = await res.json();
 
