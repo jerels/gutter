@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { signUp } from '../../store/entities/users';
 import { login } from '../../store/session/session';
 
@@ -56,4 +57,4 @@ const SignUpForm = ({ history }) => {
     )
 };
 
-export default SignUpForm;
+export default withRouter(SignUpForm);
