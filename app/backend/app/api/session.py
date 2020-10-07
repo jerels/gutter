@@ -1,8 +1,8 @@
 from flask import Blueprint, request, make_response
-from sqlalcemy import or_
+from sqlalchemy import or_
 from flask_login import login_user, current_user, logout_user
 from werkzeug.datastructures import MultiDict
-from flask_wtf.crsrf import generate_csrf
+from flask_wtf.csrf import generate_csrf
 from ..forms.login import LoginForm
 from ..models.user import User
 
