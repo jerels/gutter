@@ -13,16 +13,15 @@ session = Blueprint('session', __name__)
 def login():
     data = MultiDict(mapping=request.json)
     form = LoginForm(data)
-    print('data!:', data['emailOrUsername'])
     if form.validate():
         user = User.query.filter(or_(
-            User.username == data['emailOrUsername'], User.email == data['emailOrUsername'])).first()
-        print('user!: ', user)
+            User.username == data['emailOrUsername'],
+            User.email == data['emailOrUsername'])).first()
         if user and user.checkPassword(data['password']):
             login_user(user)
             return {'userId': user.to_dict()['id']}
         else:
-            res = make_response({'errors': ['User does not exist']})
+            res = make_response({'errors': ['User does not exist']}, 401)
             return res
     else:
         res = make_response(

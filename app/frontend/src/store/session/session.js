@@ -24,7 +24,7 @@ export const login = (emailOrUsername, password) => {
         res.data = await res.json();
 
         if (res.ok) {
-            dispatch(setUser(res.data.user));
+            dispatch(setUser(res.data.userId));
         }
         return res;
     }
