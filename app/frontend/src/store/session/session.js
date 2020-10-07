@@ -30,11 +30,17 @@ export const login = (emailOrUsername, password) => {
     }
 };
 
-export default function sessionReducer(state, action) {
+const initState = {
+    user: null
+};
+
+export default function sessionReducer(state = initState, action) {
     const newState = Object.assign({}, state);
     switch (action.type) {
         case SET_USER:
             newState.user = action.user;
             return newState;
+        default:
+            return state;
     }
 };
