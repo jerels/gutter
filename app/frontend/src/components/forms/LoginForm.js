@@ -1,13 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { Button, TextField } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import { login } from '../../store/session/session';
 
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        '& .MuiTextField-root': {
+            margin: theme.spacing(1),
+            width: '20ch'
+        },
+        '& .MuiButton-root': {
+            margin: 15
+        }
+    },
+
+}));
 
 const LoginForm = ({ history }) => {
     const [emailOrUsername, setEmailOrUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
+    const classes = useStyles();
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -35,22 +51,15 @@ const LoginForm = ({ history }) => {
     };
 
     return (
-        <form method="" action="" onSubmit={handleSubmit}>
-            <div>
-                <input placeholder="Email or Username" type="text" name="email_or_username" value={emailOrUsername} className="auth_input" onChange={onEmailOrUsernameChange} />
-            </div>
-
-            <div>
-                <input placeholder="Password" type="password" name="password" value={password} className="auth_input" onChange={onPasswordChange} />
-            </div>
-            <div className="login_form_error_container">
-                {errors.length ?
-                    <ul className="auth_error_list">
-                        {errors.map((error, i) => <li className="error_message" key={`error-${i + 1}`}>{error}</li>)}
-                    </ul>
-                    : <></>}
-            </div>
-            <button type="submit" className="auth_button">Continue</button>
+        <form method="" action="" className={classes.root} onSubmit={handleSubmit}>
+            <TextField required size='small' label="Email/Username" type="text" variant='filled' name="email_or_username" value={emailOrUsername} onChange={onEmailOrUsernameChange} />
+            <TextField required size='small' label="Password" type="password" variant='filled' name="password" value={password} onChange={onPasswordChange} />
+            {errors.length ?
+                <ul>
+                    {errors.map((error, i) => <li key={`error-${i + 1}`}>{error}</li>)}
+                </ul>
+                : <></>}
+            <Button type='submit' color="inherit">Login</Button>
         </form>
     )
 };
