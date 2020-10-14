@@ -9,7 +9,7 @@ from ..models.user import User
 session = Blueprint('session', __name__)
 
 
-@session.route('login', methods=['POST'])
+@session.route('/login', methods=['POST'])
 def login():
     data = MultiDict(mapping=request.json)
     form = LoginForm(data)

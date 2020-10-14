@@ -13,6 +13,12 @@ def index():
     return {"users": [user.to_dict() for user in response]}
 
 
+@user_routes.route('/<int:userId>')
+def getUser(userId):
+    user = User.query.filter(User.id == userId).first()
+    return user.to_dict()
+
+
 @user_routes.route('/', methods=['POST'])
 def signUp():
     data = MultiDict(mapping=request.json)
