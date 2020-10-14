@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request, make_response
 from werkzeug.datastructures import MultiDict
 from ..forms.signUp import SignUpForm
-from ..models.user import db, User
+from ..models import db, User
 
 user_routes = Blueprint('users', __name__)
 

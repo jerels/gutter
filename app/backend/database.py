@@ -1,4 +1,4 @@
-from app.models.user import User
+from app.models import User
 from app import app, db
 from dotenv import load_dotenv
 load_dotenv()
