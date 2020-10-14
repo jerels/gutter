@@ -3,6 +3,7 @@ import { Grid } from '@material-ui/core';
 import Header from './Header';
 import ComicCarousel from './ComicCarousel';
 import Footer from './Footer';
+import SignUpForm from '../forms/SignUpForm';
 
 const SplashPage = () => {
     return (
@@ -17,8 +18,15 @@ const SplashPage = () => {
                 </Grid>
                 <Grid item xs='1' />
             </Grid>
-            <Grid item>
-                Content
+            <Grid container item>
+                <Grid item xs='1' />
+                <Grid item xs='5'>
+                    <SignUpForm />
+                </Grid>
+                <Grid item xs='5'>
+                    Content
+                </Grid>
+                <Grid item xs='1' />
             </Grid>
             <Grid item>
                 <Footer />

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { makeStyles, Button, TextField } from '@material-ui/core';
 import { signUp } from '../../store/entities/users';
 import { login } from '../../store/session/session';
 
@@ -42,17 +43,23 @@ const SignUpForm = ({ history }) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <input name="username" type="text" value={username} onChange={onUsernameChange} className="auth_input" placeholder='Username' />
-            <input name="email" type="email" value={email} onChange={onEmailChange} className="auth_input" placeholder='Email' />
-            <input name="password" type="password" value={password} onChange={onPasswordChange} className="auth_input" placeholder='Password' />
-            <div className="login_form_error_container" >
+            <div>
+                <TextField name="username" type="text" value={username} onChange={onUsernameChange} label='Username' />
+            </div>
+            <div>
+                <TextField name="email" type="email" value={email} onChange={onEmailChange} label='Email' />
+            </div>
+            <div>
+                <TextField name="password" type="password" value={password} onChange={onPasswordChange} label='Password' />
+            </div>
+            <div>
                 {errors.length ?
-                    <ul className="auth_error_list">
-                        {errors.map((error, i) => <li className="error_message" key={`error-${i + 1}`}>{error}</li>)}
+                    <ul>
+                        {errors.map((error, i) => <li key={`error-${i + 1}`}>{error}</li>)}
                     </ul>
                     : <></>}
             </div>
-            <button type="submit" className="auth_button">Continue</button>
+            <Button type="submit">Continue</Button>
         </form>
     )
 };
