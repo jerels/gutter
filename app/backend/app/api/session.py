@@ -19,7 +19,7 @@ def login():
             User.email == data['emailOrUsername'])).first()
         if user and user.checkPassword(data['password']):
             login_user(user)
-            return {'userId': user.to_dict()['id']}
+            return {'userId': user.toDict()['id']}
         else:
             res = make_response({'errors': ['User does not exist']}, 401)
             return res

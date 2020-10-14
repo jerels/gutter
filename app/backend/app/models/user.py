@@ -25,7 +25,7 @@ class User(db.Model, UserMixin):
     def checkPassword(self, password):
         return check_password_hash(self.password, password)
 
-    def to_dict(self):
+    def toDict(self):
         return {
             "id": self.id,
             "username": self.username,
