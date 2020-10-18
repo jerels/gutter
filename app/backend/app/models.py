@@ -16,7 +16,7 @@ class User(db.Model, UserMixin):
     hashedPassword = db.Column(db.String(255), nullable=False)
 
     reviews = db.relationship('Review', back_populates='user')
-    issues = db.relationship('Issue', secondary=userIssues)
+    issues = db.relationship('UserIssue')
 
     @property
     def password(self):
@@ -33,7 +33,8 @@ class User(db.Model, UserMixin):
         return {
             "id": self.id,
             "username": self.username,
-            "email": self.email
+            "email": self.email,
+            "issues": self.issues
         }
 
 
@@ -67,25 +68,26 @@ class Issue(db.Model):
     __tablename__ = 'issues'
 
     id = db.Column(db.Integer, primary_key=True)
-    comicVineId = db.Column(db.Integer, nullable=False, unique=True)
+    marvelId = db.Column(db.Integer, nullable=False, unique=True)
 
     reviews = db.relationship('Review', back_populates='issue')
 
     def toDict(self):
         return {
             'id': self.id,
-            'comicVineId': self.comicVineId
+            'marvelId': self.marvelId
         }
 
 
-userIssues = db.Table(
-    'userIssues',
-    db.Model.metadata,
-    db.Column('userId', db.Integer, db.ForeignKey(
-        'users.id'), primary_key=True),
-    db.Column('issueId', db.Integer, db.ForeignKey(
+class UserIssue(db.Model):
+    __tablename__ = 'userIssues'
+
+    userId = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    issueId = db.Column(db.Integer, db.ForeignKey(
         'issues.id'), primary_key=True)
-)
+
+    issue = db.relationship('Issue')
+
 
 followTable = db.Table(
     'followTable',
