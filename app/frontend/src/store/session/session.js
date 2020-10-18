@@ -1,10 +1,11 @@
 import Cookies from 'js-cookie';
+import { setUser } from '../entities/users';
 
-const SET_USER = 'session/SET_USER';
+const SET_SESSION = 'session/SET_SESSION';
 
-export const setUser = user => {
+export const setSession = user => {
     return {
-        type: SET_USER,
+        type: SET_SESSION,
         user
     }
 };
@@ -24,7 +25,8 @@ export const login = (emailOrUsername, password) => {
         res.data = await res.json();
 
         if (res.ok) {
-            dispatch(setUser(res.data.userId));
+            dispatch(setSession(res.data.user.id));
+            dispatch(setUser(res.data.user))
         }
         return res;
     }
@@ -37,7 +39,7 @@ const initState = {
 export default function sessionReducer(state = initState, action) {
     const newState = Object.assign({}, state);
     switch (action.type) {
-        case SET_USER:
+        case SET_SESSION:
             newState.user = action.user;
             return newState;
         default:
