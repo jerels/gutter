@@ -88,6 +88,12 @@ class UserIssue(db.Model):
 
     issue = db.relationship('Issue')
 
+    def toDict(self):
+        return {
+            'userId': self.userId,
+            'issueId': self.issueId
+        }
+
 
 followTable = db.Table(
     'followTable',
