@@ -24,7 +24,7 @@ export const signUp = (username, email, password) => {
         const data = await res.json();
         res.data = data;
         if (res.ok) {
-            dispatch(setUser(data));
+            dispatch(setUser(res.data));
             return res;
         } else {
             console.error('Bad response');
