@@ -1,6 +1,6 @@
 import os
 import requests
-from flask import Blueprint
+from flask import Blueprint, request
 from hashlib import md5
 from datetime import datetime
 from .issueDict import issueDict
@@ -12,22 +12,24 @@ timeStamp = datetime.now().strftime("%H:%M:%S")
 hashRes = md5((timeStamp + priKey + pubKey).encode()).hexdigest()
 
 
-@issuesRoute.route('/<int:issueId>')
-def issueLookup(issueId):
+@issuesRoute.route('/')
+def issueLookup():
+    data = request.json
     params = {
         'ts': timeStamp,
         'apikey': pubKey,
         'hash': hashRes
     }
+    issues = []
+    for marvelId in data:
+        comic = requests.get(
+            f'https://gateway.marvel.com:443/v1/public/comics/{marvelId}?',
+            params=params
+        )
+        issues.append(comic['data']['results'])
 
-    res = requests.get(
-        f'https://gateway.marvel.com:443/v1/public/comics/{issueId}?',
-        params=params
-    )
-
-    issue = res['data']['results']
     return {
-        issueId: issueDict(issue)
+        timeStamp: issueDict(issues)
     }
 
 

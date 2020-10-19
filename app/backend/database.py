@@ -12,9 +12,9 @@ with app.app_context():
     issue1 = Issue(marvelId=89)
     issue2 = Issue(marvelId=78)
     issue3 = Issue(marvelId=207)
-    userIssues1 = UserIssue(userId=1, issueId=1)
-    userIssues2 = UserIssue(userId=1, issueId=2)
-    userIssues3 = UserIssue(userId=1, issueId=3)
+    userIssues1 = UserIssue(userId=1, marvelId=89)
+    userIssues2 = UserIssue(userId=1, marvelId=78)
+    userIssues3 = UserIssue(userId=1, marvelId=207)
 
     # ian = User(username='Ian', email='ian@aa.io')
     # javier = User(username='Javier', email='javier@aa.io')

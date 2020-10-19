@@ -35,7 +35,7 @@ const LoginForm = ({ history }) => {
 
         const res = await dispatch(login(emailOrUsername, password));
         if (res.ok) {
-            history.replace('/');
+            history.replace('/user');
             return;
         }
 

@@ -22,7 +22,7 @@ def login():
             login_user(user)
             userLogged = user.toDict()
             print(userLogged)
-            issues = [issue.toDict()['issueId']
+            issues = [issue.toDict()['marvelId']
                       for issue in userLogged['issues']]
             userLogged['issues'] = issues
             print(userLogged)

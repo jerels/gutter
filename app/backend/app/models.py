@@ -83,15 +83,15 @@ class UserIssue(db.Model):
     __tablename__ = 'userIssues'
 
     userId = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
-    issueId = db.Column(db.Integer, db.ForeignKey(
-        'issues.id'), primary_key=True)
+    marvelId = db.Column(db.Integer, db.ForeignKey(
+        'issues.marvelId'), primary_key=True)
 
     issue = db.relationship('Issue')
 
     def toDict(self):
         return {
             'userId': self.userId,
-            'issueId': self.issueId
+            'marvelId': self.marvelId
         }
 
 

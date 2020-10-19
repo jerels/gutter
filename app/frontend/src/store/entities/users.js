@@ -36,7 +36,7 @@ export const signUp = (username, email, password) => {
 export default function usersReducer(state = {}, action) {
     switch (action.type) {
         case SET_USER:
-            return { [action.user.id]: action.user };
+            return { ...action.user };
         default:
             return state;
     }

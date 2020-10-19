@@ -1,4 +1,4 @@
-import Cookies from 'js-cookie';
+
 
 const SET_ISSUES = 'issues/SET_ISSUES';
 
@@ -10,18 +10,19 @@ const setIssues = issues => {
 };
 
 export const getComics = issueIds => {
-
     return async dispatch => {
-        const issues = issueIds.map(issueId => {
-            const res = await fetch(`/api/issues/${issueId}`)
-            const data = await res.json()
-            res.data = data
-            if (res.ok) {
-                return data
-            }
-        });
-
-        dispatch(setIssues(issues))
+        const res = await fetch('/api/issues', {
+            body: JSON.stringify({ 'issues': issueIds })
+        })
+        const data = await res.json();
+        res.data = data;
+        if (res.ok) {
+            dispatch(setIssues(res.data));
+            return res;
+        } else {
+            console.error('Bad response');
+            return res;
+        }
     }
 };
 

@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import LoginForm from './components/forms/LoginForm';
 import SignUpForm from './components/forms/SignUpForm';
 import UserList from './components/UsersList';
 import SplashPage from './components/home/SplashPage';
+import UserPage from './components/home/UserPage';
 
 
 function App() {
+
     useEffect(() => {
         const getCSRF = async () => {
             const res = await fetch('/api/session/csrf');
@@ -16,6 +18,9 @@ function App() {
         }
         getCSRF();
     }, []);
+
+
+
     return (
         <BrowserRouter>
             <Switch>
@@ -24,6 +29,9 @@ function App() {
                 </Route>
                 <Route path='/login'>
                     <LoginForm />
+                </Route>
+                <Route path='/user'>
+                    <UserPage />
                 </Route>
                 <Route path='/signup'>
                     <SignUpForm />
