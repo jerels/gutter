@@ -3,17 +3,19 @@
 def issueDict(issues):
     comics = []
     for issue in issues:
-        comics.append(
-            {
-                'marvelId': issue.id,
-                'title': issue.title,
-                'description': issue.description,
-                'format': issue.format,
-                'pageCount': issue.pageCount,
-                'series': issue.series,
-                'collectedIssues': issue.collectedIssues,
-                'cover': issue.thumbnail,
-                'creators': issue.creators
-            }
-        )
+        for comic in issue:
+            cover = comic['thumbnail']
+            comics.append(
+                {
+                    'marvelId': comic['id'],
+                    'title': comic['title'],
+                    'description': comic['description'],
+                    'format': comic['format'],
+                    'pageCount': comic['pageCount'],
+                    'series': comic['series'],
+                    'collectedIssues': comic['collectedIssues'],
+                    'cover': cover['path'] + '/portrait_xlarge.' + cover['extension'],
+                    'creators': comic['creators']
+                }
+            )
     return comics

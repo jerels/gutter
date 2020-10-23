@@ -23,10 +23,12 @@ export const login = (emailOrUsername, password) => {
             body: JSON.stringify({ emailOrUsername, password, 'csrf_token': csrfToken })
         });
         res.data = await res.json();
-        console.log(res.data)
+        debugger
+        console.log(res.data.user)
         if (res.ok) {
+            dispatch(setUser(res.data.user));
+            debugger;
             dispatch(setSession(res.data.user.id));
-            dispatch(setUser(res.data.user))
         }
         return res;
     }

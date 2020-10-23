@@ -5,6 +5,7 @@ import SignUpForm from './components/forms/SignUpForm';
 import UserList from './components/UsersList';
 import SplashPage from './components/home/SplashPage';
 import UserPage from './components/home/UserPage';
+import AuthRoute from './components/AuthRoute';
 
 
 function App() {
@@ -30,15 +31,10 @@ function App() {
                 <Route path='/login'>
                     <LoginForm />
                 </Route>
-                <Route path='/user'>
-                    <UserPage />
-                </Route>
                 <Route path='/signup'>
                     <SignUpForm />
                 </Route>
-                <Route path="/">
-                    <SplashPage />
-                </Route>
+                <AuthRoute path='/' component={UserPage} />
             </Switch>
         </BrowserRouter>
     );

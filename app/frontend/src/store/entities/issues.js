@@ -10,8 +10,13 @@ const setIssues = issues => {
 };
 
 export const getComics = issueIds => {
+    debugger
     return async dispatch => {
         const res = await fetch('/api/issues', {
+            method: 'put',
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify({ 'issues': issueIds })
         })
         const data = await res.json();

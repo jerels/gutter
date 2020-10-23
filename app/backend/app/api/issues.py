@@ -12,7 +12,7 @@ timeStamp = datetime.now().strftime("%H:%M:%S")
 hashRes = md5((timeStamp + priKey + pubKey).encode()).hexdigest()
 
 
-@issuesRoute.route('/')
+@issuesRoute.route('', methods=['PUT'])
 def issueLookup():
     data = request.json
     params = {
@@ -21,15 +21,17 @@ def issueLookup():
         'hash': hashRes
     }
     issues = []
-    for marvelId in data:
-        comic = requests.get(
+    print(data)
+    for marvelId in data['issues']:
+        res = requests.get(
             f'https://gateway.marvel.com:443/v1/public/comics/{marvelId}?',
             params=params
         )
+        comic = res.json()
         issues.append(comic['data']['results'])
-
+    print(issues)
     return {
-        timeStamp: issueDict(issues)
+        'issues': issueDict(issues)
     }
 
 
