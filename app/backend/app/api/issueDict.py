@@ -14,7 +14,7 @@ def issueDict(issues):
                     'pageCount': comic['pageCount'],
                     'series': comic['series'],
                     'collectedIssues': comic['collectedIssues'],
-                    'cover': cover['path'] + '/portrait_xlarge.' + cover['extension'],
+                    # 'cover': cover['path'] + '/portrait_xlarge.' + cover['extension'],
                     'creators': comic['creators']
                 }
             )

@@ -19,7 +19,7 @@ export const useStyles = makeStyles((theme) => ({
 
 
 const ComicGrid = () => {
-    const userIssues = useSelector(state => state.entities.issues)
+    const userIssues = useSelector(state => state.entities.users.issues)
     const classes = useStyles();
     console.log(userIssues);
     return (
