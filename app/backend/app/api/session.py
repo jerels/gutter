@@ -5,7 +5,7 @@ from werkzeug.datastructures import MultiDict
 from flask_wtf.csrf import generate_csrf
 import requests
 from ..forms.login import LoginForm
-from ..models import User
+from ..models import User, Issue
 
 session = Blueprint('session', __name__)
 
@@ -22,8 +22,10 @@ def login():
             login_user(user)
             userLogged = user.toDict()
             print(userLogged)
-            issues = [issue.toDict()['marvelId']
-                      for issue in userLogged['issues']]
+            userIssues = [issue.toDict()
+                          for issue in userLogged['issues']]
+            issues = [(Issue.query.filter(
+                Issue.marvelId == issue['marvelId']).first()).toDict() for issue in userIssues]
             userLogged['issues'] = issues
             print(userLogged)
             return {'user': userLogged}

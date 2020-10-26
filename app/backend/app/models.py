@@ -69,13 +69,15 @@ class Issue(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     marvelId = db.Column(db.Integer, nullable=False, unique=True)
+    cover = db.Column(db.String, nullable=False, unique=True)
 
     reviews = db.relationship('Review', back_populates='issue')
 
     def toDict(self):
         return {
             'id': self.id,
-            'marvelId': self.marvelId
+            'marvelId': self.marvelId,
+            'cover': self.cover
         }
 
 
