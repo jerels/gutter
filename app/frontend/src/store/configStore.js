@@ -2,11 +2,13 @@ import { createStore, compose, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import session from './session/session';
 import users from './entities/users';
+import issues from './entities/issues';
 
 let storeEnhancer;
 
 const entities = combineReducers({
-    users
+    users,
+    issues
 })
 
 const rootReducer = combineReducers({

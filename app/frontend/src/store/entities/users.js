@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 
 const SET_USER = 'users/SET_USER';
 
-const setUser = user => {
+export const setUser = user => {
     return {
         type: SET_USER,
         user
@@ -24,7 +24,7 @@ export const signUp = (username, email, password) => {
         const data = await res.json();
         res.data = data;
         if (res.ok) {
-            dispatch(setUser(data));
+            dispatch(setUser(res.data));
             return res;
         } else {
             console.error('Bad response');
@@ -36,7 +36,7 @@ export const signUp = (username, email, password) => {
 export default function usersReducer(state = {}, action) {
     switch (action.type) {
         case SET_USER:
-            return { [action.user.id]: action.user };
+            return { ...action.user };
         default:
             return state;
     }

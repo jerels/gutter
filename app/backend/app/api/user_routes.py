@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request, make_response
 from werkzeug.datastructures import MultiDict
 from ..forms.signUp import SignUpForm
-from ..models.user import db, User
+from ..models import db, User
 
 user_routes = Blueprint('users', __name__)
 
@@ -10,7 +10,13 @@ user_routes = Blueprint('users', __name__)
 def index():
     response = User.query.all()
     print("user route______")
-    return {"users": [user.to_dict() for user in response]}
+    return {"users": [user.toDict() for user in response]}
+
+
+@user_routes.route('/<int:userId>')
+def getUser(userId):
+    user = User.query.filter(User.id == userId).first()
+    return user.toDict()
 
 
 @user_routes.route('/', methods=['POST'])
@@ -24,7 +30,7 @@ def signUp():
             db.session.add(user)
             db.session.commit()
 
-            newUser = user.to_dict()
+            newUser = user.toDict()
             return {newUser['id']: newUser}
         else:
             res = make_response({'errors': ['That user already exists.']}, 401)

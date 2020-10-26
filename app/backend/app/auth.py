@@ -1,5 +1,5 @@
 from flask_login import LoginManager
-from .models.user import User
+from .models import User
 
 loginManager = LoginManager()
 loginManager.login_view = 'session.login'
