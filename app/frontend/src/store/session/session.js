@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie';
 import { setUser } from '../entities/users';
+import { getComics } from '../entities/issues';
 
 const SET_SESSION = 'session/SET_SESSION';
 
@@ -27,6 +28,7 @@ export const login = (emailOrUsername, password) => {
         console.log(res.data.user)
         if (res.ok) {
             dispatch(setUser(res.data.user));
+            dispatch(getComics(res.data.user.issues));
             debugger;
             dispatch(setSession(res.data.user.id));
         }

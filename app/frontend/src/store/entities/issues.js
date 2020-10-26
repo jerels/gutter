@@ -12,15 +12,17 @@ const setIssues = issues => {
 export const getComics = issueIds => {
     debugger
     return async dispatch => {
-        const res = await fetch('/api/issues', {
+        const res = await fetch('/api/issues/', {
             method: 'put',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ 'issues': issueIds })
-        })
+        });
+        debugger;
         const data = await res.json();
         res.data = data;
+        console.log(res.data);
         if (res.ok) {
             dispatch(setIssues(res.data));
             return res;

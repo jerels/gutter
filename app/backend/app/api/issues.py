@@ -12,7 +12,7 @@ timeStamp = datetime.now().strftime("%H:%M:%S")
 hashRes = md5((timeStamp + priKey + pubKey).encode()).hexdigest()
 
 
-@issuesRoute.route('', methods=['PUT'])
+@issuesRoute.route('/', methods=['PUT'])
 def issueLookup():
     data = request.json
     params = {

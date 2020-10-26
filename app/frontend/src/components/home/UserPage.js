@@ -6,21 +6,17 @@ import ComicGrid from './ComicGrid';
 
 
 
-const UserPage = ({ issues, userIssues }) => {
-
+const UserPage = ({ userIssues }) => {
+    const user = useSelector(state => state.entities.users);
+    const issues = useSelector(state => state.entities.issues);
     const dispatch = useDispatch();
-    console.log(userIssues)
-    useEffect(() => {
-        const getIssues = async () => {
-            await dispatch(getComics(userIssues))
-        }
-        getIssues();
-    }, [userIssues])
+    console.log(userIssues);
+    console.log(user.issues);
     console.log(issues);
     return (
         <Grid container justify="center" alignItems="center">
             <Grid item xs={4}></Grid>
-            <ComicGrid issues={issues} />
+            <ComicGrid />
             <Grid item xs={4}></Grid>
         </Grid>
     )
@@ -29,8 +25,7 @@ const UserPage = ({ issues, userIssues }) => {
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        userIssues: state.entities.users,
-        issues: state.entities.issues
+        userIssues: state.entities.issues
     };
 }
 
