@@ -4,6 +4,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import LoginForm from '../forms/LoginForm';
+import LogoutButton from '../forms/LogoutButton';
+import { useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -17,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = () => {
     const classes = useStyles();
+    const user = useSelector(state => state.session.user);
     return (
         <div className={classes.root}>
             <AppBar position="static">
@@ -24,7 +27,7 @@ const Header = () => {
                     <Typography variant="h6" className={classes.title}>
                         The Gutter
                     </Typography>
-                    <LoginForm />
+                    {user ? <LogoutButton /> : <LoginForm />}
                 </Toolbar>
             </AppBar>
         </div>
