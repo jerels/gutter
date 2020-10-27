@@ -36,7 +36,7 @@ const ComicGrid = () => {
             {userIssues.map(issue => (
                 <Grid key={issue.marvelId} item>
                     <ComicCard cover={issue.cover} />
-                    <IconButton onClick={handleDelete(issue.marvelId)} color="primary" aria-label="upload picture" component="span">
+                    <IconButton color="primary" aria-label="upload picture" component="span">
                         <DeleteIcon />
                     </IconButton>
                 </Grid>
