@@ -1,9 +1,10 @@
 import os
 import requests
-from flask import Blueprint, request
+from flask import Blueprint, request, make_response
 from hashlib import md5
 from datetime import datetime
 from .issueDict import issueDict
+from ..models import db, UserIssue, User
 
 issuesRoute = Blueprint('issues', __name__)
 pubKey = os.environ['MARVEL_PUB_KEY']
@@ -33,6 +34,26 @@ def issueLookup():
     return {
         'issues': issueDict(issues)
     }
+
+
+@issuesRoute.route('/', methods=['DELETE'])
+def deleteIssue():
+    data = request.json
+    issueJoin = UserIssue.query.filter(
+        UserIssue.userId == data['userId'], UserIssue.marvelId == data['marvelId']).first()
+    db.session.delete(issueJoin)
+    db.session.commit()
+    user = User.query.filter(User.id == data['userId']).first().toDict()
+    if user:
+        userIssues = [issue.toDict()
+                      for issue in user['issues']]
+        issues = [(Issue.query.filter(
+            Issue.marvelId == issue['marvelId']).first()).toDict() for issue in userIssues]
+        user['issues'] = issues
+        return {'user': user}
+    else:
+        res = make_response({'errors': ['User does not exist']}, 401)
+        return res
 
 
 @issuesRoute.route('/<searchTerm>')

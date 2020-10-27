@@ -1,8 +1,10 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import DeleteIcon from '@material-ui/icons/Delete';
 import ComicCard from './ComicCard';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteComic } from '../../store/entities/issues';
 
 export const useStyles = makeStyles((theme) => ({
     root: {
@@ -11,6 +13,7 @@ export const useStyles = makeStyles((theme) => ({
     paper: {
         height: 225,
         width: 150,
+        elevation: 4
     },
     control: {
         padding: theme.spacing(2),
@@ -19,14 +22,23 @@ export const useStyles = makeStyles((theme) => ({
 
 
 const ComicGrid = () => {
-    const userIssues = useSelector(state => state.entities.users.issues)
+    const userIssues = useSelector(state => state.entities.users.issues);
+    const userId = useSelector(state => state.session.user);
+    const dispatch = useDispatch();
     const classes = useStyles();
-    console.log(userIssues);
+
+    const handleDelete = marvelId => {
+        dispatch(deleteComic(userId, marvelId));
+    }
+
     return (
         <Grid container className={classes.root} spacing={2} item xs={4}>
             {userIssues.map(issue => (
                 <Grid key={issue.marvelId} item>
                     <ComicCard cover={issue.cover} />
+                    <IconButton onClick={handleDelete(issue.marvelId)} color="primary" aria-label="upload picture" component="span">
+                        <DeleteIcon />
+                    </IconButton>
                 </Grid>
             ))}
         </Grid>
