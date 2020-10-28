@@ -38,6 +38,12 @@ def login():
         return res
 
 
+@session.route('/logout', methods=['DELETE'])
+def logout():
+    logout_user()
+    return {'message': 'Logged out'}
+
+
 @session.route('/csrf')
 def csrf():
     res = make_response('set token')
