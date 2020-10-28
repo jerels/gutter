@@ -41,6 +41,7 @@ def login():
 @session.route('/logout', methods=['DELETE'])
 def logout():
     logout_user()
+    return {'message': 'Logged out'}
 
 
 @session.route('/csrf')
