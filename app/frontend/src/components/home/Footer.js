@@ -6,6 +6,7 @@ const useStyles = makeStyles((theme) => ({
     footer: {
         padding: theme.spacing(3, 2),
         marginTop: 'auto',
+        backgroundColor: 'black'
     },
 }));
 
@@ -15,7 +16,7 @@ const Footer = () => {
 
     return (
         <footer className={classes.footer}>
-            <Container maxWidth="sm">
+            <Container maxWidth="lg">
             </Container>
         </footer>
     )
