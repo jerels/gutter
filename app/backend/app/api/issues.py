@@ -4,7 +4,7 @@ from flask import Blueprint, request, make_response
 from hashlib import md5
 from datetime import datetime
 from .issueDict import issueDict
-from ..models import db, UserIssue, User
+from ..models import db, UserIssue, User, Issue
 
 issuesRoute = Blueprint('issues', __name__)
 pubKey = os.environ['MARVEL_PUB_KEY']
@@ -39,10 +39,13 @@ def issueLookup():
 @issuesRoute.route('/', methods=['DELETE'])
 def deleteIssue():
     data = request.json
+    print('DATA', data)
     issueJoin = UserIssue.query.filter(
         UserIssue.userId == data['userId'], UserIssue.marvelId == data['marvelId']).first()
+    print(issueJoin)
     db.session.delete(issueJoin)
     db.session.commit()
+    print('TABLE DELETED')
     user = User.query.filter(User.id == data['userId']).first().toDict()
     if user:
         userIssues = [issue.toDict()

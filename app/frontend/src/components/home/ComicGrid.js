@@ -28,7 +28,11 @@ const ComicGrid = () => {
     const classes = useStyles();
 
     const handleDelete = marvelId => {
-        dispatch(deleteComic(userId, marvelId));
+        return async function (e) {
+            e.preventDefault();
+            await dispatch(deleteComic(userId, marvelId));
+            return;
+        }
     }
 
     return (
@@ -36,7 +40,7 @@ const ComicGrid = () => {
             {userIssues.map(issue => (
                 <Grid key={issue.marvelId} item>
                     <ComicCard cover={issue.cover} />
-                    <IconButton color="primary" aria-label="upload picture" component="span">
+                    <IconButton onClick={handleDelete(issue.marvelId)} color="primary" aria-label="upload picture" component="span">
                         <DeleteIcon />
                     </IconButton>
                 </Grid>
