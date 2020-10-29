@@ -7,6 +7,7 @@ import ComicGrid from './ComicGrid';
 import UserBar from './UserBar';
 import Header from './Header';
 import Footer from './Footer';
+import FollowBar from './FollowBar';
 
 const useStyles = makeStyles(theme => ({
     avatar: {
@@ -35,7 +36,7 @@ const UserPage = ({ userIssues }) => {
             <Grid className={classes.user} container item justify="center" alignItems="center">
                 <UserBar props={user.username} />
                 <ComicGrid />
-                <Grid item xs={4}></Grid>
+                <FollowBar />
             </Grid>
             <Grid item>
                 <Footer />
