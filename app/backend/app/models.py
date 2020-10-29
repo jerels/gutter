@@ -6,6 +6,15 @@ from datetime import datetime
 
 db = SQLAlchemy()
 
+followTable = db.Table(
+    'followTable',
+    db.Model.metadata,
+    db.Column('followingId', db.Integer, db.ForeignKey(
+        'users.id'), primary_key=True),
+    db.Column('followedId', db.Integer, db.ForeignKey(
+        'users.id'), primary_key=True)
+)
+
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -17,6 +26,11 @@ class User(db.Model, UserMixin):
 
     reviews = db.relationship('Review', back_populates='user')
     issues = db.relationship('UserIssue')
+    followed = db.relationship(
+        'User', secondary=followTable,
+        primaryjoin=(followTable.c.followingId == id),
+        secondaryjoin=(followTable.c.followedId == id),
+        backref=db.backref('followers', lazy='dynamic'), lazy='dynamic')
 
     @property
     def password(self):
@@ -26,6 +40,18 @@ class User(db.Model, UserMixin):
     def password(self, password):
         self.hashedPassword = generate_password_hash(password)
 
+    def isFollowing(self, user):
+        return self.followed.filter(
+            followTable.c.followedId == user.id).count() > 0
+
+    def follow(self, user):
+        if not self.isFollowing(user):
+            self.followed.append(user)
+
+    def unfollow(self, user):
+        if self.isFollowing(user):
+            self.followed.remove(user)
+
     def checkPassword(self, password):
         return check_password_hash(self.password, password)
 
@@ -34,7 +60,8 @@ class User(db.Model, UserMixin):
             "id": self.id,
             "username": self.username,
             "email": self.email,
-            "issues": self.issues
+            "issues": self.issues,
+            "followed": self.followed
         }
 
 
@@ -95,13 +122,3 @@ class UserIssue(db.Model):
             'userId': self.userId,
             'marvelId': self.marvelId
         }
-
-
-followTable = db.Table(
-    'followTable',
-    db.Model.metadata,
-    db.Column('followingId', db.Integer, db.ForeignKey(
-        'users.id'), primary_key=True),
-    db.Column('followedId', db.Integer, db.ForeignKey(
-        'users.id'), primary_key=True)
-)

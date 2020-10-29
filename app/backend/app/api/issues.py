@@ -3,7 +3,7 @@ import requests
 from flask import Blueprint, request, make_response
 from hashlib import md5
 from datetime import datetime
-from .issueDict import issueDict
+from .issueDict import issueDict, userCollection
 from ..models import db, UserIssue, User, Issue
 
 issuesRoute = Blueprint('issues', __name__)
@@ -36,6 +36,34 @@ def issueLookup():
     }
 
 
+@issuesRoute.route('/<int:userId>', methods=['PUT'])
+def addComic(userId):
+    data = request.json
+    newIssue = UserIssue(userId=userId, marvelId=data['marvelId'])
+    db.session.add(newIssue)
+    db.session.commit()
+
+    user = User.query.filter(User.id == userId).first().toDict()
+    if user:
+        userIssues = userCollection(user['issues'])
+        issues = [(Issue.query.filter(
+            Issue.marvelId == issue['marvelId']).first()).toDict() for issue in userIssues]
+        following = [follow.toDict() for follow in user['followed']]
+        for follow in following:
+            print('!!!!!!!!!', follow)
+            followIssues = userCollection(follow['issues'])
+            followCollection = [(Issue.query.filter(
+                Issue.marvelId == issue['marvelId']).first()).toDict() for issue in followIssues]
+            follow['issues'] = followCollection
+            del follow['followed']
+        user['issues'] = issues
+        user['followed'] = following
+        return {'user': user}
+    else:
+        res = make_response({'errors': ['User does not exist']}, 401)
+        return res
+
+
 @issuesRoute.route('/', methods=['DELETE'])
 def deleteIssue():
     data = request.json
@@ -48,11 +76,19 @@ def deleteIssue():
     print('TABLE DELETED')
     user = User.query.filter(User.id == data['userId']).first().toDict()
     if user:
-        userIssues = [issue.toDict()
-                      for issue in user['issues']]
+        userIssues = userCollection(user['issues'])
         issues = [(Issue.query.filter(
             Issue.marvelId == issue['marvelId']).first()).toDict() for issue in userIssues]
+        following = [follow.toDict() for follow in user['followed']]
+        for follow in following:
+            print('!!!!!!!!!', follow)
+            followIssues = userCollection(follow['issues'])
+            followCollection = [(Issue.query.filter(
+                Issue.marvelId == issue['marvelId']).first()).toDict() for issue in followIssues]
+            follow['issues'] = followCollection
+            del follow['followed']
         user['issues'] = issues
+        user['followed'] = following
         return {'user': user}
     else:
         res = make_response({'errors': ['User does not exist']}, 401)

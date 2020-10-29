@@ -19,3 +19,10 @@ def issueDict(issues):
                 }
             )
     return comics
+
+
+def userCollection(issues):
+    comics = []
+    for issue in issues:
+        comics.append(issue.toDict())
+    return comics
