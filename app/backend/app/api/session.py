@@ -6,6 +6,7 @@ from flask_wtf.csrf import generate_csrf
 import requests
 from ..forms.login import LoginForm
 from ..models import User, Issue
+from .issueDict import userCollection
 
 session = Blueprint('session', __name__)
 
@@ -22,11 +23,19 @@ def login():
             login_user(user)
             userLogged = user.toDict()
             print(userLogged)
-            userIssues = [issue.toDict()
-                          for issue in userLogged['issues']]
+            userIssues = userCollection(userLogged['issues'])
             issues = [(Issue.query.filter(
                 Issue.marvelId == issue['marvelId']).first()).toDict() for issue in userIssues]
+            following = [follow.toDict() for follow in userLogged['followed']]
+            for follow in following:
+                print('!!!!!!!!!', follow)
+                followIssues = userCollection(follow['issues'])
+                followCollection = [(Issue.query.filter(
+                    Issue.marvelId == issue['marvelId']).first()).toDict() for issue in followIssues]
+                follow['issues'] = followCollection
+                del follow['followed']
             userLogged['issues'] = issues
+            userLogged['followed'] = following
             print(userLogged)
             return {'user': userLogged}
         else:
