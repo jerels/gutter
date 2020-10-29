@@ -60,7 +60,8 @@ class User(db.Model, UserMixin):
             "id": self.id,
             "username": self.username,
             "email": self.email,
-            "issues": self.issues
+            "issues": self.issues,
+            "followed": self.followed
         }
 
 
