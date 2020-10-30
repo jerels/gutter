@@ -31,6 +31,7 @@ def signUp():
             db.session.commit()
 
             newUser = user.toDict()
+            del newUser['followed']
             return {newUser['id']: newUser}
         else:
             res = make_response({'errors': ['That user already exists.']}, 401)

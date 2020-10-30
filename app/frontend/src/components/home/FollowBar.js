@@ -4,9 +4,21 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import { useSelector, useDispatch } from 'react-redux';
 import ComicCard from './ComicCard';
 import { addToCollection } from '../../store/entities/issues';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+    root: {
+        marginTop: theme.spacing(5),
+        marginLeft: theme.spacing(1),
+    },
+    title: {
+        marginBottom: theme.spacing(1)
+    }
+}))
 
 const FollowBar = () => {
     const dispatch = useDispatch();
+    const classes = useStyles();
     const followed = useSelector(state => state.entities.users.followed);
     const userId = useSelector(state => state.session.user);
 
@@ -19,8 +31,8 @@ const FollowBar = () => {
     }
 
     return (
-        <Grid container spacing={2} item xs={4} direction='column'>
-            <Typography>You're friends are reading...</Typography>
+        <Grid className={classes.root} container spacing={2} item xs={4} direction='column'>
+            <Typography className={classes.title}>your friends are reading...</Typography>
             {followed.map(follow => (
                 <Grid key={follow.id} item>
                     <ComicCard cover={follow.issues[0].cover} />

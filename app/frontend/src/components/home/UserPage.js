@@ -15,7 +15,12 @@ const useStyles = makeStyles(theme => ({
         height: theme.spacing(20)
     },
     user: {
-        marginBottom: theme.spacing(100)
+        marginBottom: theme.spacing(100),
+    },
+    root: {
+        minHeight: '100vh'
+    },
+    header: {
     }
 }))
 
@@ -29,11 +34,11 @@ const UserPage = ({ userIssues }) => {
     console.log(user.issues);
     console.log(issues);
     return (
-        <Grid container direction='column'>
-            <Grid item>
+        <Grid className={classes.root} justify="flex-start" container direction='column'>
+            <Grid className={classes.header} item>
                 <Header />
             </Grid>
-            <Grid className={classes.user} container item justify="center" alignItems="center">
+            <Grid className={classes.user} container item justify="center" alignItems="flex-start">
                 <UserBar props={user.username} />
                 <ComicGrid />
                 <FollowBar />

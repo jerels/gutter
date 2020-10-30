@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme) => ({
     title: {
         flexGrow: 1,
     },
+    header: {
+        backgroundColor: '#492742'
+    }
 }));
 
 
@@ -22,7 +25,7 @@ const Header = () => {
     const user = useSelector(state => state.session.user);
     return (
         <div className={classes.root}>
-            <AppBar position="static">
+            <AppBar className={classes.header} position="static">
                 <Toolbar>
                     <Typography variant="h6" className={classes.title}>
                         The Gutter

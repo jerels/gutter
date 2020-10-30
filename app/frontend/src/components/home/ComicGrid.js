@@ -9,15 +9,16 @@ import { deleteComic } from '../../store/entities/issues';
 export const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
+        marginLeft: theme.spacing(1)
     },
     paper: {
         height: 225,
         width: 150,
         elevation: 4
     },
-    control: {
-        padding: theme.spacing(2),
-    },
+    grid: {
+        marginTop: theme.spacing(5)
+    }
 }));
 
 
@@ -38,7 +39,7 @@ const ComicGrid = () => {
     return (
         <Grid container className={classes.root} spacing={2} item xs={4}>
             {userIssues.map(issue => (
-                <Grid key={issue.marvelId} item>
+                <Grid className={classes.grid} key={issue.marvelId} item>
                     <ComicCard cover={issue.cover} />
                     <IconButton onClick={handleDelete(issue.marvelId)} color="primary" aria-label="upload picture" component="span">
                         <DeleteIcon />

@@ -23,10 +23,10 @@ const SignUpForm = ({ history }) => {
         const res = await dispatch(signUp(username, email, password));
         if (res.ok) {
             await dispatch(login(username, password));
-            history.replace('/');
+            history.replace('/user');
+            setErrors(res.data.errors);
             return;
         }
-        setErrors(res.data.errors);
     };
 
     const onUsernameChange = e => {
