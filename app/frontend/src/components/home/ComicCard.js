@@ -8,7 +8,7 @@ const ComicCard = ({ cover }) => {
     console.log(cover);
     return (
         <Paper className={classes.paper} square>
-            <img src={cover} />
+            <img alt={cover} src={cover} />
         </Paper>
     )
 }

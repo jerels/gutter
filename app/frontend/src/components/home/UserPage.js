@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
-import { Avatar, Grid, Paper, Typography } from '@material-ui/core';
+import React from 'react';
+import { connect, useSelector } from 'react-redux';
+import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles'
-import { getComics } from '../../store/entities/issues';
 import ComicGrid from './ComicGrid';
 import UserBar from './UserBar';
 import Header from './Header';
@@ -28,7 +27,6 @@ const useStyles = makeStyles(theme => ({
 const UserPage = ({ userIssues }) => {
     const user = useSelector(state => state.entities.users);
     const issues = useSelector(state => state.entities.issues);
-    const dispatch = useDispatch();
     const classes = useStyles();
     console.log(userIssues);
     console.log(user.issues);

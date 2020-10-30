@@ -1,7 +1,6 @@
 import React from 'react';
 import { Grid, Typography } from '@material-ui/core';
 import Header from './Header';
-import ComicCarousel from './ComicCarousel';
 import Footer from './Footer';
 import SignUpForm from '../forms/SignUpForm';
 import { makeStyles } from '@material-ui/core/styles';
