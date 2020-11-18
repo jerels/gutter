@@ -3,12 +3,14 @@ import thunk from 'redux-thunk';
 import session from './session/session';
 import users from './entities/users';
 import issues from './entities/issues';
+import ui from './entities/ui';
 
 let storeEnhancer;
 
 const entities = combineReducers({
     users,
-    issues
+    issues,
+    ui
 })
 
 const rootReducer = combineReducers({

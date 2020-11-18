@@ -1,9 +1,11 @@
 import React from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography, Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { useDispatch } from 'react-redux';
+import { toggleSignUpModal } from '../../store/entities/ui';
 import Header from './Header';
 import Footer from './Footer';
-import SignUpForm from '../forms/SignUpForm';
-import { makeStyles } from '@material-ui/core/styles';
+
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -20,7 +22,13 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const SplashPage = () => {
+    const dispatch = useDispatch();
     const classes = useStyles();
+
+    const handleSignUpModal = () => {
+        dispatch(toggleSignUpModal());
+    }
+
     return (
         <div className={classes.root}>
             <Grid container direction='column'>
@@ -31,9 +39,9 @@ const SplashPage = () => {
                     <Grid item xs={1} />
                     <Grid className={classes.signup} item xs={5} justify='center' alignItems='center' direction='column'>
                         <Typography>
-                            Sign Up
+                            Join the Club!!
                         </Typography>
-                        <SignUpForm />
+                        <Button onClick={handleSignUpModal}>Sign Up!</Button>
                     </Grid>
                     <Grid item>
                         Content
