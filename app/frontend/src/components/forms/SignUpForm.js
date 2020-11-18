@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Button, TextField } from '@material-ui/core';
+import { Button, TextField, Paper, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { signUp } from '../../store/entities/users';
 import { login } from '../../store/session/session';
 import { toggleSignUpModal } from '../../store/entities/ui';
 
 const useStyles = makeStyles(theme => ({
-    form: {
+    formPaper: {
         backgroundColor: 'cornsilk',
         width: '300px',
-        height: '257px',
+        height: '317px',
         position: 'absolute',
-        top: '282px',
-        left: '596px',
+        top: '250px',
+        left: '700px',
         display: 'grid',
         alignItems: 'center',
         justifyItems: 'center'
@@ -24,6 +24,13 @@ const useStyles = makeStyles(theme => ({
         width: '100%',
         height: '100%',
         backgroundColor: 'rgba(133, 133, 133, 0.5)'
+    },
+    form: {
+        marginTop: '-50px'
+    },
+    formButton: {
+        left: '24px',
+        top: '15px',
     }
 }))
 
@@ -70,27 +77,30 @@ const SignUpForm = ({ history }) => {
     return (
         <>
             <div onClick={handleSignUpModal} className={classes.formContainer} />
-            <form className={classes.form} onSubmit={handleSubmit}>
-                <div>
+            <Paper className={classes.formPaper}>
+                <Typography>Sign Up</Typography>
+                <form className={classes.form} onSubmit={handleSubmit}>
                     <div>
-                        <TextField name="username" type="text" value={username} onChange={onUsernameChange} label='Username' />
+                        <div>
+                            <TextField name="username" type="text" value={username} onChange={onUsernameChange} label='Username' />
+                        </div>
+                        <div>
+                            <TextField name="email" type="email" value={email} onChange={onEmailChange} label='Email' />
+                        </div>
+                        <div>
+                            <TextField name="password" type="password" value={password} onChange={onPasswordChange} label='Password' />
+                        </div>
+                        <div>
+                            {errors.length ?
+                                <ul>
+                                    {errors.map((error, i) => <li key={`error-${i + 1}`}>{error}</li>)}
+                                </ul>
+                                : <></>}
+                        </div>
+                        <Button className={classes.formButton} type="submit" variant="contained">Come on in...</Button>
                     </div>
-                    <div>
-                        <TextField name="email" type="email" value={email} onChange={onEmailChange} label='Email' />
-                    </div>
-                    <div>
-                        <TextField name="password" type="password" value={password} onChange={onPasswordChange} label='Password' />
-                    </div>
-                    <div>
-                        {errors.length ?
-                            <ul>
-                                {errors.map((error, i) => <li key={`error-${i + 1}`}>{error}</li>)}
-                            </ul>
-                            : <></>}
-                    </div>
-                    <Button type="submit">Come on in...</Button>
-                </div>
-            </form>
+                </form>
+            </Paper>
         </>
 
     )
