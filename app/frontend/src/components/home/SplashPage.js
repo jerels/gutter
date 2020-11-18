@@ -1,10 +1,11 @@
 import React from 'react';
 import { Grid, Typography, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toggleSignUpModal } from '../../store/entities/ui';
 import Header from './Header';
 import Footer from './Footer';
+import SignUpForm from '../forms/SignUpForm';
 
 
 const useStyles = makeStyles(theme => ({
@@ -23,6 +24,7 @@ const useStyles = makeStyles(theme => ({
 
 const SplashPage = () => {
     const dispatch = useDispatch();
+    const signUpModal = useSelector(state => state.entities.ui.signUpModal);
     const classes = useStyles();
 
     const handleSignUpModal = () => {
@@ -31,6 +33,7 @@ const SplashPage = () => {
 
     return (
         <div className={classes.root}>
+            {signUpModal ? <SignUpForm /> : <></>}
             <Grid container direction='column'>
                 <Grid item>
                     <Header />
