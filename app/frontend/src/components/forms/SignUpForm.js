@@ -5,6 +5,7 @@ import { Button, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { signUp } from '../../store/entities/users';
 import { login } from '../../store/session/session';
+import { toggleSignUpModal } from '../../store/entities/ui';
 
 const useStyles = makeStyles(theme => ({
     form: {
@@ -18,6 +19,12 @@ const useStyles = makeStyles(theme => ({
         alignItems: 'center',
         justifyItems: 'center'
     },
+    formContainer: {
+        position: 'fixed',
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'rgba(133, 133, 133, 0.5)'
+    }
 }))
 
 const SignUpForm = ({ history }) => {
@@ -44,6 +51,10 @@ const SignUpForm = ({ history }) => {
         }
     };
 
+    const handleSignUpModal = () => {
+        dispatch(toggleSignUpModal());
+    }
+
     const onUsernameChange = e => {
         setUsername(e.target.value);
     };
@@ -57,27 +68,31 @@ const SignUpForm = ({ history }) => {
     };
 
     return (
-        <form className={classes.form} onSubmit={handleSubmit}>
-            <div>
+        <>
+            <div onClick={handleSignUpModal} className={classes.formContainer} />
+            <form className={classes.form} onSubmit={handleSubmit}>
                 <div>
-                    <TextField name="username" type="text" value={username} onChange={onUsernameChange} label='Username' />
+                    <div>
+                        <TextField name="username" type="text" value={username} onChange={onUsernameChange} label='Username' />
+                    </div>
+                    <div>
+                        <TextField name="email" type="email" value={email} onChange={onEmailChange} label='Email' />
+                    </div>
+                    <div>
+                        <TextField name="password" type="password" value={password} onChange={onPasswordChange} label='Password' />
+                    </div>
+                    <div>
+                        {errors.length ?
+                            <ul>
+                                {errors.map((error, i) => <li key={`error-${i + 1}`}>{error}</li>)}
+                            </ul>
+                            : <></>}
+                    </div>
+                    <Button type="submit">Come on in...</Button>
                 </div>
-                <div>
-                    <TextField name="email" type="email" value={email} onChange={onEmailChange} label='Email' />
-                </div>
-                <div>
-                    <TextField name="password" type="password" value={password} onChange={onPasswordChange} label='Password' />
-                </div>
-                <div>
-                    {errors.length ?
-                        <ul>
-                            {errors.map((error, i) => <li key={`error-${i + 1}`}>{error}</li>)}
-                        </ul>
-                        : <></>}
-                </div>
-                <Button type="submit">Continue</Button>
-            </div>
-        </form>
+            </form>
+        </>
+
     )
 };
 
