@@ -19,6 +19,13 @@ const useStyles = makeStyles(theme => ({
     signup: {
         marginLeft: theme.spacing(20),
         marginTop: theme.spacing(20)
+    },
+    flavorText: {
+        width: '517px',
+        marginTop: '170px'
+    },
+    headerImage: {
+        width: '100%'
     }
 }));
 
@@ -39,7 +46,7 @@ const SplashPage = () => {
                     <Header />
                 </Grid>
                 <Grid item>
-                    <img alt='' src='../../../images/original.jpg' />
+                    <img className={classes.headerImage} alt='' src='https://i.pinimg.com/originals/ba/6a/0f/ba6a0f62a273aeaec8bfd7107933e632.jpg'></img>
                 </Grid>
                 <Grid container item>
                     <Grid item xs={1} />
@@ -49,8 +56,10 @@ const SplashPage = () => {
                         </Typography>
                         <Button onClick={handleSignUpModal}>Sign Up!</Button>
                     </Grid>
-                    <Grid item>
-                        Content
+                    <Grid item className={classes.flavorText}>
+                        <Typography>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Purus semper eget duis at. Urna porttitor rhoncus dolor purus non. Vulputate eu scelerisque felis imperdiet proin. Ac placerat vestibulum lectus mauris ultrices eros. Amet risus nullam eget felis eget nunc lobortis mattis aliquam. Eget aliquet nibh praesent tristique magna sit amet. Fermentum odio eu feugiat pretium nibh ipsum consequat nisl vel. In arcu cursus euismod quis viverra nibh cras pulvinar. A cras semper auctor neque vitae tempus quam pellentesque nec. Sem nulla pharetra diam sit amet nisl suscipit. Tellus cras adipiscing enim eu turpis egestas pretium aenean. Nunc lobortis mattis aliquam faucibus purus in massa tempor nec. Ornare lectus sit amet est placerat in egestas erat imperdiet. Quam vulputate dignissim suspendisse in.
+                        </Typography>
                     </Grid>
                     <Grid item xs={1} />
                 </Grid>
