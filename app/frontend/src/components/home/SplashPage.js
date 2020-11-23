@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Typography, Button } from '@material-ui/core';
+import { Grid, Typography, Button, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleSignUpModal } from '../../store/entities/ui';
@@ -7,25 +7,43 @@ import Header from './Header';
 import Footer from './Footer';
 import SignUpForm from '../forms/SignUpForm';
 
-
+const signupImage = 'https://www.onlygfx.com/wp-content/uploads/2017/01/comic-explosion-bubble-5.png'
 const useStyles = makeStyles(theme => ({
     root: {
         minHeight: '100vh',
         backgroundColor: '#A2E0DB'
     },
     footer: {
-        marginTop: theme.spacing(66)
+
     },
     signup: {
-        marginLeft: theme.spacing(20),
         marginTop: theme.spacing(20)
+    },
+    signupPaper: {
+        width: '560px',
+        height: '304px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    // signupDiv: {
+    //     background: `url(${signupImage}) no-repeat fixed center`,
+    // },
+    signupButton: {
+        left: '130px',
+        top: '25px'
     },
     flavorText: {
         width: '517px',
-        marginTop: '170px'
+        position: 'relative',
+        bottom: '137px'
     },
     headerImage: {
         width: '100%'
+    },
+    middleContent: {
+        justifyContent: 'center',
+        alignItems: 'baseline'
     }
 }));
 
@@ -48,13 +66,17 @@ const SplashPage = () => {
                 <Grid item>
                     <img className={classes.headerImage} alt='' src='https://i.pinimg.com/originals/ba/6a/0f/ba6a0f62a273aeaec8bfd7107933e632.jpg'></img>
                 </Grid>
-                <Grid container item>
+                <Grid container item className={classes.middleContent}>
                     <Grid item xs={1} />
                     <Grid className={classes.signup} item xs={5} justify='center' alignItems='center' direction='column'>
-                        <Typography>
-                            Join the Club!!
-                        </Typography>
-                        <Button onClick={handleSignUpModal}>Sign Up!</Button>
+                        <Paper square='true' elevation={3} className={classes.signupPaper}>
+                            <div className={classes.signupDiv}>
+                                <Typography variant='h2'>
+                                    Join the Club!!
+                                </Typography>
+                                <Button className={classes.signupButton} variant='contained' size='large' color='primary' onClick={handleSignUpModal}>Sign Up!</Button>
+                            </div>
+                        </Paper>
                     </Grid>
                     <Grid item className={classes.flavorText}>
                         <Typography>
