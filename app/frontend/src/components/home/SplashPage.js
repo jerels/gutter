@@ -26,17 +26,18 @@ const useStyles = makeStyles(theme => ({
         alignItems: 'center',
         justifyContent: 'center'
     },
-    // signupDiv: {
-    //     background: `url(${signupImage}) no-repeat fixed center`,
-    // },
+    signupDiv: {
+        display: 'flex',
+        flexDirection: 'column'
+    },
     signupButton: {
-        left: '130px',
-        top: '25px'
+        top: '25px',
+        marginBottom: '27px'
     },
     flavorText: {
         width: '517px',
         position: 'relative',
-        bottom: '137px'
+        bottom: '91px'
     },
     headerImage: {
         width: '100%'
@@ -75,6 +76,7 @@ const SplashPage = () => {
                                     Join the Club!!
                                 </Typography>
                                 <Button className={classes.signupButton} variant='contained' size='large' color='primary' onClick={handleSignUpModal}>Sign Up!</Button>
+                                <Button className={classes.signupButton} variant='contained' size='large' color='secondary' onClick={handleSignUpModal}>Demo</Button>
                             </div>
                         </Paper>
                     </Grid>
