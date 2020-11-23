@@ -3,6 +3,7 @@ import { Grid, Typography, Button, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleSignUpModal } from '../../store/entities/ui';
+import { login } from '../../store/session/session';
 import Header from './Header';
 import Footer from './Footer';
 import SignUpForm from '../forms/SignUpForm';
@@ -48,14 +49,18 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const SplashPage = () => {
+const SplashPage = ({ history }) => {
     const dispatch = useDispatch();
     const signUpModal = useSelector(state => state.entities.ui.signUpModal);
     const classes = useStyles();
 
     const handleSignUpModal = () => {
         dispatch(toggleSignUpModal());
-    }
+    };
+
+    const handleDemoButton = async () => {
+        await dispatch(login('demo', 'password'));
+    };
 
     return (
         <div className={classes.root}>
@@ -76,7 +81,7 @@ const SplashPage = () => {
                                     Join the Club!!
                                 </Typography>
                                 <Button className={classes.signupButton} variant='contained' size='large' color='primary' onClick={handleSignUpModal}>Sign Up!</Button>
-                                <Button className={classes.signupButton} variant='contained' size='large' color='secondary' onClick={handleSignUpModal}>Demo</Button>
+                                <Button className={classes.signupButton} variant='contained' size='large' color='secondary' onClick={handleDemoButton}>Demo</Button>
                             </div>
                         </Paper>
                     </Grid>
