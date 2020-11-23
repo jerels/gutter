@@ -38,6 +38,9 @@ const SplashPage = () => {
                 <Grid item>
                     <Header />
                 </Grid>
+                <Grid item>
+                    <img alt='' src='../../../images/original.jpg' />
+                </Grid>
                 <Grid container item>
                     <Grid item xs={1} />
                     <Grid className={classes.signup} item xs={5} justify='center' alignItems='center' direction='column'>
